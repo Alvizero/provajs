@@ -1,13 +1,13 @@
+const nomeInput = document.getElementById("nome");
+const cognomeInput = document.getElementById("cognome");
+const etaInput = document.getElementById("eta");
+
 document.getElementById("accedi").addEventListener("click", accedi);
 
 function accedi() {
-  const nomeInput = document.getElementById("nome");
-  const cognomeInput = document.getElementById("cognome");
-  const etaInput = document.getElementById("eta");
-
-  const nome = nomeInput.value.trim();
-  const cognome = cognomeInput.value.trim();
-  const eta = etaInput.value.trim();
+  let nome = nomeInput.value.trim();
+  let cognome = cognomeInput.value.trim();
+  let eta = etaInput.value.trim();
 
   if (nome === "") {
     alert("Inserisci il nome.");
@@ -21,20 +21,20 @@ function accedi() {
     return;
   }
 
-  if (eta === "") {
-    alert("Inserisci l'età.");
+  if (eta === "" || eta < 18) {
+    alert("Inserisci l'età oppure devi avere almeno 18 anni!");
     etaInput.focus();
     return;
   }
 
- /* if (nome === "" || cognome === "" || eta === "") {
-    alert("Per favore, compila tutti i campi per accedere.");
-    return;
-  }*/
- 
+  quiz();
+}
 
+function quiz() {
   document.getElementById("registrati").style.display = "none";
   document.getElementById("quiz").style.display = "block";
+
+  document.getElementById("benvenuto").innerHTML = "Benvenuto " + nomeInput.value + " " + cognomeInput.value;
 }
 
 
@@ -46,8 +46,9 @@ function valutaQuiz() {
   const risposta1 = document.querySelector('input[name="q1"]:checked');
   const risposta2 = document.querySelector('input[name="q2"]:checked');
 
-  if (risposta1 && risposta1.value === "Roma") punteggio++;
+  if (risposta1 && risposta1.value === "roma") punteggio++;
   if (risposta2 && risposta2.value === "8") punteggio++;
 
-  document.getElementById("risultato").innerHTML = "hai fatto: " + punteggio + "punti su 2";
+  let messaggio = "hai fatto: " + punteggio + " punti su 2";
+  document.getElementById("risultato").innerHTML = messaggio;
 }
